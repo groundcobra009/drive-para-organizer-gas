@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 100%;
+    }
+    h1 {
+      color: #1a73e8;
+      font-size: 20px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #1a73e8;
+      padding-bottom: 10px;
+    }
+    h2 {
+      color: #5f6368;
+      font-size: 16px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .section {
+      background-color: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #202124;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 2px rgba(26,115,232,0.1);
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    button {
+      flex: 1;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .btn-primary {
+      background-color: #1a73e8;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #1765cc;
+    }
+    .btn-secondary {
+      background-color: #f1f3f4;
+      color: #202124;
+    }
+    .btn-secondary:hover {
+      background-color: #e8eaed;
+    }
+    .btn-danger {
+      background-color: #ea4335;
+      color: white;
+    }
+    .btn-danger:hover {
+      background-color: #c5221f;
+    }
+    .status-message {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      display: none;
+    }
+    .status-success {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #a5d6a7;
+    }
+    .status-error {
+      background-color: #ffebee;
+      color: #c62828;
+      border: 1px solid #ef9a9a;
+    }
+    .help-section {
+      background-color: #e8f0fe;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+    .help-section h2 {
+      color: #1a73e8;
+      margin-top: 0;
+    }
+    .help-section ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .help-section li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+    .help-section code {
+      background-color: #f1f3f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+    }
+    .info-text {
+      font-size: 12px;
+      color: #5f6368;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Drive整理 - 設定</h1>
+    
+    <div class="section">
+      <h2>PARA分類フォルダ設定</h2>
+      
+      <div class="form-group">
+        <label for="projectFolderId">プロジェクト フォルダID</label>
+        <input type="text" id="projectFolderId" placeholder="フォルダIDを入力">
+        <div class="info-text">My Drive直下の「プロジェクト」フォルダのID</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="areaFolderId">エリア フォルダID</label>
+        <input type="text" id="areaFolderId" placeholder="フォルダIDを入力">
+        <div class="info-text">My Drive直下の「エリア」フォルダのID</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="resourceFolderId">リソース フォルダID</label>
+        <input type="text" id="resourceFolderId" placeholder="フォルダIDを入力">
+        <div class="info-text">My Drive直下の「リソース」フォルダのID</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="archiveFolderId">アーカイブ フォルダID</label>
+        <input type="text" id="archiveFolderId" placeholder="フォルダIDを入力">
+        <div class="info-text">My Drive直下の「アーカイブ」フォルダのID</div>
+      </div>
+      
+      <div class="button-group">
+        <button class="btn-primary" onclick="saveSettings()">設定を保存</button>
+        <button class="btn-secondary" onclick="loadSettings()">設定を読み込み</button>
+      </div>
+
+      <div id="statusMessage" class="status-message"></div>
+    </div>
+
+    <div class="section">
+      <h2>列の表示設定</h2>
+      <div class="button-group">
+        <button class="btn-secondary" onclick="toggleFileIdColumn()">フォルダID列 表示/非表示</button>
+      </div>
+    </div>
+    
+    <div class="help-section">
+      <h2>📖 ヘルプ</h2>
+      <h3>使い方</h3>
+      <ul>
+        <li><strong>ファイル一覧を取得</strong>: 「Drive整理」メニューから「ファイル一覧を取得」を選択すると、My Drive直下のファイルがスプレッドシートに展開されます。</li>
+        <li><strong>ファイルを移動</strong>: スプレッドシートの「移動」列にチェックを入れて、「チェック済みファイルを移動」を実行します。</li>
+        <li><strong>ファイル名を変更</strong>: 「新しいファイル名」列に新しい名前を入力して、「名前変更を実行」を実行します。</li>
+      </ul>
+      
+      <h3>フォルダIDの取得方法</h3>
+      <ul>
+        <li>Google Driveでフォルダを開きます</li>
+        <li>ブラウザのアドレスバーからURLを確認します</li>
+        <li>URLの <code>/folders/</code> の後にある文字列がフォルダIDです</li>
+        <li>例: <code>https://drive.google.com/drive/folders/1ABC123xyz...</code> の場合、<code>1ABC123xyz...</code> がフォルダID</li>
+      </ul>
+      
+      <h3>注意事項</h3>
+      <ul>
+        <li>フォルダIDは必ず正しいものを入力してください</li>
+        <li>移動やリネームは元に戻せません。実行前に確認してください</li>
+        <li>大量のファイルを一度に処理する場合は時間がかかる場合があります</li>
+      </ul>
+    </div>
+  </div>
+  
+  <script>
+    // ページ読み込み時に設定を読み込む
+    window.onload = function() {
+      loadSettings();
+    };
+    
+    // 設定を読み込む
+    function loadSettings() {
+      google.script.run
+        .withSuccessHandler(function(config) {
+          document.getElementById('projectFolderId').value = config.projectFolderId || '';
+          document.getElementById('areaFolderId').value = config.areaFolderId || '';
+          document.getElementById('resourceFolderId').value = config.resourceFolderId || '';
+          document.getElementById('archiveFolderId').value = config.archiveFolderId || '';
+
+          showStatus('設定を読み込みました', 'success');
+        })
+        .withFailureHandler(function(error) {
+          showStatus('設定の読み込みに失敗しました: ' + error.message, 'error');
+        })
+        .getConfig();
+    }
+    
+    // 設定を保存
+    function saveSettings() {
+      var config = {
+        projectFolderId: document.getElementById('projectFolderId').value.trim(),
+        areaFolderId: document.getElementById('areaFolderId').value.trim(),
+        resourceFolderId: document.getElementById('resourceFolderId').value.trim(),
+        archiveFolderId: document.getElementById('archiveFolderId').value.trim()
+      };
+
+      // バリデーション
+      var hasError = false;
+      var errorMessage = '';
+
+      // フォルダIDの検証（入力されている場合のみ）
+      var folderIds = [
+        { key: 'projectFolderId', name: 'プロジェクト', value: config.projectFolderId },
+        { key: 'areaFolderId', name: 'エリア', value: config.areaFolderId },
+        { key: 'resourceFolderId', name: 'リソース', value: config.resourceFolderId },
+        { key: 'archiveFolderId', name: 'アーカイブ', value: config.archiveFolderId }
+      ];
+      
+      // 非同期で検証（簡易版：保存のみ実行）
+      google.script.run
+        .withSuccessHandler(function(result) {
+          if (result.success) {
+            showStatus(result.message, 'success');
+          } else {
+            showStatus(result.message, 'error');
+          }
+        })
+        .withFailureHandler(function(error) {
+          showStatus('設定の保存に失敗しました: ' + error.message, 'error');
+        })
+        .saveConfig(config);
+    }
+    
+    // ステータスメッセージを表示
+    function showStatus(message, type) {
+      var statusDiv = document.getElementById('statusMessage');
+      statusDiv.textContent = message;
+      statusDiv.className = 'status-message status-' + type;
+      statusDiv.style.display = 'block';
+
+      // 3秒後に自動で非表示
+      setTimeout(function() {
+        statusDiv.style.display = 'none';
+      }, 3000);
+    }
+
+    // フォルダID列の表示/非表示を切り替え
+    function toggleFileIdColumn() {
+      google.script.run
+        .withSuccessHandler(function(result) {
+          showStatus('フォルダID列の表示を切り替えました', 'success');
+        })
+        .withFailureHandler(function(error) {
+          showStatus('エラー: ' + error.message, 'error');
+        })
+        .toggleFileIdColumn();
+    }
+  </script>
+</body>
+</html>
